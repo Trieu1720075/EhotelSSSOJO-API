@@ -1,10 +1,11 @@
 package com.elcom.ehotel.Sojo.dao;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.sql.SQLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,13 +13,10 @@ import java.util.Map;
 import java.util.Vector;
 
 import javax.ws.rs.core.Response;
-
 import com.elcom.DBI.SubProParam;
 import com.elcom.ehotel.Sojo.model.Params;
 import com.elcom.ehotel.Sojo.util.Config;
 import com.elcom.ehotel.Sojo.util.SQL;
-
-import jdk.internal.loader.AbstractClassLoaderValue.Sub;
 
 public class SoJoDao {
 	// Refers the DB broker object
@@ -141,7 +139,7 @@ public class SoJoDao {
 		return dataWelcome;
 	}
 
-	// TC_ApiSetlang_04
+	// TC_ApiSetlang
 	@SuppressWarnings("unchecked")
 	public List<HashMap<String, String>> setLanguageAndGetMain(String key, String langId) {
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
@@ -177,8 +175,37 @@ public class SoJoDao {
 		return list;
 	}
 
-	// Not Done
-	// TC_ApiGetWerther
+	// TC_ApiGetFeedBack
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, String>> getFeedback(String key) {
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		Vector<SubProParam> params = new Vector<SubProParam>();
+		SubProParam in = new SubProParam(new String(key), 0);
+		params.add(in);
+		Vector<String> outParam = new Vector<String>();
+		SubProParam subOut = new SubProParam(outParam, "STRING_ARR", 1);
+		params.add(subOut);
+		try {
+			params = SQL.broker.executeSubPro(SQL.GET_FEEDBACK, params);
+			if ((params != null) & (params.size() > 0)) {
+				subOut = (SubProParam) params.get(params.size() - 1);
+				outParam = subOut.getVector();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		for (int i = 0; i < outParam.size(); i += 2) {
+			String id = "id";
+			String name = "name";
+			HashMap<String, String> data = new HashMap<String, String>();
+			data.put(id, outParam.get(i));
+			data.put(name, outParam.get(i + 1));
+			list.add(data);
+		}
+		return list;
+	}
+
+	// TC_ApiGetWeather
 	@SuppressWarnings("unchecked")
 	public List<HashMap<String, String>> getWeather(String key) {
 		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
@@ -197,11 +224,18 @@ public class SoJoDao {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		for (int i = 0; i < outParam.size(); i += 3) {
+		for (int i = 0; i < outParam.size(); i += 10) {
 			HashMap<String, String> dataWeather = new HashMap<String, String>();
-//			dataWeather.put("idSubs", outParam.get(i));
-//			dataWeather.put("nameSubs", outParam.get(i + 1));
-//			dataWeather.put("imgSubs", outParam.get(i + 2));
+			dataWeather.put("id", outParam.get(i));
+			dataWeather.put("date", outParam.get(i + 1));
+			dataWeather.put("temp", outParam.get(i + 2));
+			dataWeather.put("tempmin", outParam.get(i + 3));
+			dataWeather.put("tempmax", outParam.get(i + 4));
+			dataWeather.put("day", outParam.get(i + 5));
+			dataWeather.put("image", outParam.get(i + 6));
+			dataWeather.put("detail", outParam.get(i + 7));
+			dataWeather.put("winspeed", outParam.get(i + 8));
+			dataWeather.put("humidity", outParam.get(i + 9));
 			list.add(dataWeather);
 		}
 		return list;
@@ -315,7 +349,8 @@ public class SoJoDao {
 			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = "TC_ApiUpDownChannel" + "$" + para.getKeytablet() + "$" + para.getNumber() + "$" + para.getStep();
+			String mess = "TC_ApiUpDownChannel" + "$" + para.getKeytablet() + "$" + para.getNumber() + "$"
+					+ para.getStep();
 			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
 					+ "\"</SDAP/1.0>";
 			byte messageSend[] = messSendRequest.getBytes();
@@ -644,6 +679,71 @@ public class SoJoDao {
 		return list;
 	}
 
+	// TC_ApiGetListSubjectOrder
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, String>> getListSubjectOrder(String key, String subject) {
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		Vector<SubProParam> params = new Vector<SubProParam>();
+		SubProParam in = new SubProParam(new String(key), 0);
+		params.add(in);
+		in = new SubProParam(new String(subject), 0);
+		params.add(in);
+		Vector<String> outParam = new Vector<String>();
+		SubProParam subOut = new SubProParam(outParam, "STRING_ARR", 1);
+		params.add(subOut);
+		try {
+			params = SQL.broker.executeSubPro(SQL.GET_LIST_SUBS_ORDER, params);
+			if ((params != null) & (params.size() > 0)) {
+				subOut = (SubProParam) params.get(params.size() - 1);
+				outParam = subOut.getVector();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		for (int i = 0; i < outParam.size(); i += 3) {
+			HashMap<String, String> data = new HashMap<String, String>();
+			data.put("id", outParam.get(i));
+			data.put("name", outParam.get(i + 1));
+			data.put("img", outParam.get(i + 2));
+			list.add(data);
+		}
+		return list;
+	}
+
+	// TC_ApiGetListItemOrder
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, String>> getListItemOrder(String key, String subject) {
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		Vector<SubProParam> params = new Vector<SubProParam>();
+		SubProParam in = new SubProParam(new String(key), 0);
+		params.add(in);
+		in = new SubProParam(new String(subject), 0);
+		params.add(in);
+		Vector<String> outParam = new Vector<String>();
+		SubProParam subOut = new SubProParam(outParam, "STRING_ARR", 1);
+		params.add(subOut);
+		try {
+			params = SQL.broker.executeSubPro(SQL.GET_LIST_ITEM_INFO, params);
+			if ((params != null) & (params.size() > 0)) {
+				subOut = (SubProParam) params.get(params.size() - 1);
+				outParam = subOut.getVector();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		for (int i = 0; i < outParam.size(); i += 6) {
+			HashMap<String, String> data = new HashMap<String, String>();
+			data.put("id", outParam.get(i));
+			data.put("name", outParam.get(i + 1));
+			data.put("detail", outParam.get(i + 2));
+			data.put("price", outParam.get(i + 3));
+			data.put("unit", outParam.get(i + 4));
+			data.put("image", outParam.get(i + 5));
+			list.add(data);
+		}
+		return list;
+	}
+
 	// TC_ApiGetFlightSchedule
 	@SuppressWarnings("unchecked")
 	public List<HashMap<String, String>> getFlightSchedule(String key, String airportId) {
@@ -696,10 +796,9 @@ public class SoJoDao {
 			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = "TC_ApiControlVolume" + "$" + para.getKeytablet() + "$" + para.getVolume() ;
-			//String mess = volume;
-			String messSendRequest = "<SDAP/1.0>SERVER 100 SET_VOLUME LEVEL " + para.getVolume()
-					+ " </SDAP/1.0>";
+			String mess = "TC_ApiControlVolume" + "$" + para.getKeytablet() + "$" + para.getVolume();
+			// String mess = volume;
+			String messSendRequest = "<SDAP/1.0>SERVER 100 SET_VOLUME LEVEL " + para.getVolume() + " </SDAP/1.0>";
 //			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
 //					+ "\"</SDAP/1.0>";
 			byte messageSend[] = messSendRequest.getBytes();
@@ -718,41 +817,41 @@ public class SoJoDao {
 
 		return r;
 	}
-	
+
 	// TC_ApiReBootTV
-		public Response sendRequestReBootTV() {
-			Response r = null;
-			String message = "sucessfully";
-			try {
-				r = Response.status(200).entity(message).build();
-				DatagramSocket socket;
-				DatagramPacket packet;
-				InetAddress address;
-				socket = new DatagramSocket();
-				String dip = config.getDbiTVIp();
-				address = InetAddress.getByName(dip);
-				int port = Integer.parseInt(config.getDbiTVPort());
-				//String mess = api + "," + keyTablet + "," + volume ;
-				//String mess = volume;
-				String messSendRequest = "<SDAP/1.0>SERVER 100 REBOOT INSTANT</SDAP/1.0>";
+	public Response sendRequestReBootTV() {
+		Response r = null;
+		String message = "sucessfully";
+		try {
+			r = Response.status(200).entity(message).build();
+			DatagramSocket socket;
+			DatagramPacket packet;
+			InetAddress address;
+			socket = new DatagramSocket();
+			String dip = config.getDbiTVIp();
+			address = InetAddress.getByName(dip);
+			int port = Integer.parseInt(config.getDbiTVPort());
+			// String mess = api + "," + keyTablet + "," + volume ;
+			// String mess = volume;
+			String messSendRequest = "<SDAP/1.0>SERVER 100 REBOOT INSTANT</SDAP/1.0>";
 //				String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
 //						+ "\"</SDAP/1.0>";
-				byte messageSend[] = messSendRequest.getBytes();
-				packet = new DatagramPacket(messageSend, messageSend.length, address, port);
-				socket.send(packet);
-				socket.close();
-			} catch (RuntimeException e) {
-				message = "Exception " + e;
-				r = Response.status(409).entity(message).build();
-				e.printStackTrace();
-			} catch (Exception e) {
-				message = "Exception " + e;
-				r = Response.status(409).entity(message).build();
-				e.printStackTrace();
-			}
-
-			return r;
+			byte messageSend[] = messSendRequest.getBytes();
+			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
+			socket.send(packet);
+			socket.close();
+		} catch (RuntimeException e) {
+			message = "Exception " + e;
+			r = Response.status(409).entity(message).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			message = "Exception " + e;
+			r = Response.status(409).entity(message).build();
+			e.printStackTrace();
 		}
+
+		return r;
+	}
 
 	// TC_ApiControlSleep
 	public Response sendRequestControlSleep(String api, String keyTablet, String bedTimeStory) {
@@ -965,14 +1064,57 @@ public class SoJoDao {
 			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
-			//String mess = api + "," + keyTablet;
+			// String mess = api + "," + keyTablet;
 			String messSendRequest = "<SDAP/1.0>SERVER 100 SYSTEM FULL_POWEROFF </SDAP/1.0>";
-			//String messSendRequest = "<SDAP/1.0>SERVER 100 SYSTEM POWERON </SDAP/1.0>";
-			
+			// String messSendRequest = "<SDAP/1.0>SERVER 100 SYSTEM POWERON </SDAP/1.0>";
+
 			byte messageSend[] = messSendRequest.getBytes();
 			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
 			socket.send(packet);
 			socket.close();
+		} catch (RuntimeException e) {
+			message = "Exception " + e;
+			r = Response.status(409).entity(message).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			message = "Exception " + e;
+			r = Response.status(409).entity(message).build();
+			e.printStackTrace();
+		}
+
+		return r;
+	}
+
+	// TC_ApiTurnOnTV
+	public Response sendRequestTurnOnTV() {
+		Response r = null;
+		String message = "sucessfully";
+		try {
+			String request = config.getWol() + "b8:bb:af:ed:e3:99";
+			String response = getRequest(request);
+			if (response.equals("OK")) // sleep 15s and call open TV
+			{
+				// Thread.sleep(Long.parseLong(config.getSleepwol()));
+				Thread.sleep(15000);
+				r = Response.status(200).entity(message).build();
+				DatagramSocket socket;
+				DatagramPacket packet;
+				InetAddress address;
+				socket = new DatagramSocket();
+				String dip = config.getDbiTVIp();
+				address = InetAddress.getByName(dip);
+				int port = Integer.parseInt(config.getDbiTVPort());
+				// String mess = api + "," + keyTablet;
+				// String messSendRequest = "<SDAP/1.0>SERVER 100 SYSTEM FULL_POWEROFF
+				// </SDAP/1.0>";
+				String messSendRequest = "<SDAP/1.0>SERVER 100 SYSTEM POWERON </SDAP/1.0>";
+
+				byte messageSend[] = messSendRequest.getBytes();
+				packet = new DatagramPacket(messageSend, messageSend.length, address, port);
+				socket.send(packet);
+				socket.close();
+			}
+
 		} catch (RuntimeException e) {
 			message = "Exception " + e;
 			r = Response.status(409).entity(message).build();
@@ -1019,12 +1161,42 @@ public class SoJoDao {
 		return r;
 	}
 
+	public String getRequest(String baseUrl) {
+		String rs = "";
+		try {
+			// String url = "http://api.agrimedia.vn/WeatherServices.asmx";
+			// http://dataservice.accuweather.com/forecasts/v1/daily/5day/01?apikey=RIxIfBd6UA7smSGyIsfAsMbFWm5QxGg4&unit=17
+			String url = baseUrl;
+			URL obj = new URL(url);
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Content-Type", "text/xml; charset=utf-8");
+			con.setDoOutput(true);
+			String responseStatus = con.getResponseMessage();
+			// System.out.println(responseStatus);
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+			// System.out.println("response:" + response.toString());
+			rs = response.toString();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return rs;
+	}
+
 	public static void main(String[] args) {
 		SoJoDao s = new SoJoDao();
+		String x = "-1";
 		String keyTablet = "1900";
 		String mainId = "25";
 		String susId = "549";
 		String airportId = "504";
+		String itemId = "856";
 //		System.out.println(s.getListRoom());
 //		System.out.println(s.getListDevice("305"));
 //		System.out.println(s.registerTablet("1900", "XTCLFOP7KAJOE"));
@@ -1035,14 +1207,17 @@ public class SoJoDao {
 		// System.out.println(s.getListChannelsBySubjects("1900", "162"));
 //		System.out.println(s.getSubjectVideo("1900"));
 //		System.out.println(s.getListVideoBySubjects("1900", "527"));
-		System.out.println(s.getSubjectMusic("1900"));
+		//System.out.println(s.getSubjectMusic("1900"));
 //		System.out.println(s.getListMusicBySubjects("1900", "550"));
-		System.out.println(s.getListMain(keyTablet));
-		System.out.println(s.getListSubjectInfo(keyTablet, mainId));
-		System.out.println(s.getListItemInfo(keyTablet, susId));
-		System.out.println(s.getListAirPort(keyTablet));
-		System.out.println(s.getFlightSchedule(keyTablet, airportId));
-
+//		System.out.println(s.getListMain(keyTablet));
+//		System.out.println(s.getListSubjectInfo(keyTablet, mainId));
+//		System.out.println(s.getListItemInfo(keyTablet, susId));
+//		System.out.println(s.getListAirPort(keyTablet));
+//		System.out.println(s.getFlightSchedule(keyTablet, airportId));
+		System.out.println(s.getListSubjectOrder(x,x));
+		System.out.println(s.getListItemOrder(x, x));
+		System.out.println(s.getWeather(x));
+		System.out.println(s.getFeedback(x));
 	}
 
 }

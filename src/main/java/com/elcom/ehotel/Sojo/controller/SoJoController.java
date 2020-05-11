@@ -189,6 +189,26 @@ public class SoJoController {
 		return list;
 	}
 
+	// TC_ApiGetWeather
+	@GET
+	@Path("/TC_ApiGetWeather/{keytablet}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HashMap<String, String>> Weather(@PathParam("keytablet") String keytablet) {
+		SoJoDao dao = new SoJoDao();
+		List<HashMap<String, String>> list = dao.getWeather(keytablet);
+		return list;
+	}
+
+	// TC_ApiGetFeedBack
+	@GET
+	@Path("/TC_ApiGetFeedBack/{keytablet}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HashMap<String, String>> FeedBack(@PathParam("keytablet") String keytablet) {
+		SoJoDao dao = new SoJoDao();
+		List<HashMap<String, String>> list = dao.getFeedback(keytablet);
+		return list;
+	}
+
 	// TC_ApiGetListAirPort
 	@GET
 	@Path("/TC_ApiGetListAirPort/{keytablet}")
@@ -218,6 +238,28 @@ public class SoJoController {
 			@PathParam("subsid") String subjectId) {
 		SoJoDao dao = new SoJoDao();
 		List<HashMap<String, String>> list = dao.getListItemInfo(keytablet, subjectId);
+		return list;
+	}
+
+	// TC_ApiGetListSubjectOrder
+	@GET
+	@Path("/TC_ApiGetListSubjectOrder/{keytablet}/{subsid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HashMap<String, String>> ListSubjectOrder(@PathParam("keytablet") String keytablet,
+			@PathParam("subsid") String subjectId) {
+		SoJoDao dao = new SoJoDao();
+		List<HashMap<String, String>> list = dao.getListSubjectOrder(keytablet, subjectId);
+		return list;
+	}
+
+	// TC_ApiGetListItemOrder
+	@GET
+	@Path("/TC_ApiGetListItemOrder/{keytablet}/{subsid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HashMap<String, String>> ListItemOrder(@PathParam("keytablet") String keytablet,
+			@PathParam("subsid") String subjectId) {
+		SoJoDao dao = new SoJoDao();
+		List<HashMap<String, String>> list = dao.getListItemOrder(keytablet, subjectId);
 		return list;
 	}
 
@@ -253,6 +295,7 @@ public class SoJoController {
 		return result;
 	}
 
+	// not done
 	// TC_ApiControlWakeup
 	@POST
 	@Path("/controlWakeUp")
@@ -264,6 +307,7 @@ public class SoJoController {
 		return result;
 	}
 
+	// not done
 	// TC_ApiControlRelaxVideo
 	@POST
 	@Path("/controlRelaxVideo")
@@ -274,6 +318,7 @@ public class SoJoController {
 		return result;
 	}
 
+	// not done
 	// TC_ApiControlWork
 	@POST
 	@Path("/controlWork")
@@ -285,6 +330,7 @@ public class SoJoController {
 		return result;
 	}
 
+	// not done
 	// TC_ApiControlRelaxLightly
 	@POST
 	@Path("/controlRelaxLightly")
@@ -295,6 +341,7 @@ public class SoJoController {
 		return result;
 	}
 
+	// not done
 	// TC_ApiControlRelaxLightly
 	@POST
 	@Path("/controlRelaxExciting")
@@ -332,6 +379,16 @@ public class SoJoController {
 	public Response ReBootTV() {
 		SoJoDao dao = new SoJoDao();
 		Response result = dao.sendRequestReBootTV();
+		return result;
+	}
+
+	// TC_ApiReBootTV
+	@POST
+	@Path("/TC_ApiTurnOnTV")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response TurnOnTV() {
+		SoJoDao dao = new SoJoDao();
+		Response result = dao.sendRequestTurnOnTV();
 		return result;
 	}
 
