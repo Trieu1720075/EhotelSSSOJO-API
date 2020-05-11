@@ -3,6 +3,7 @@ package com.elcom.ehotel.Sojo.util;
 import com.elcom.ehotel.Sojo.dbi.IMBroker;
 
 public class SQL {
+	
 	public static IMBroker broker = IMBroker.getInstance();
 	public static final String GET_LIST_ROOMS = "BEGIN EAPI.getListRooms(?); END;";
 	public static final String GET_LIST_DEVICES = "BEGIN EAPI.getListDevices(?,?); END;";
@@ -12,7 +13,6 @@ public class SQL {
 	public static final String GET_LIST_CHANEL= "BEGIN EAPI.getListChannels(?,?); END;";
 	public static final String GET_LIST_SUBS_CHANEL= "BEGIN EAPI.getListSubjectsChannels(?,?); END;";
 	public static final String GET_LIST_CHANEL_BY_SUBS= "BEGIN EAPI.getListChannelsBySubjects(?,?,?); END;";
-	public static final String GET_WEATHER= " ";
 	public static final String GET_SUBS_VIDEO= "BEGIN EAPI.getListSubjectMovie(?,?); END;";
 	public static final String GET_LIST_VIDEO_BY_SUBS= "BEGIN EAPI.getListMovie(?,?,?); END;";
 	public static final String GET_SUBS_MUSIC= "BEGIN EAPI.getListSubjectMusic(?,?); END;";
@@ -23,6 +23,9 @@ public class SQL {
 	public static final String GET_LIST_ITEM_INFO= "BEGIN EAPI.getListItemInfo(?,?,?); END;";
 	public static final String GET_LIST_AIR_PORT= "BEGIN EAPI.getListAirPort(?,?); END;";
 	public static final String GET_FLIGHT_SCHEDULE= "BEGIN EAPI.getFlightSchedule(?,?,?); END;";
-
-	
+	public static final String GET_FEEDBACK= "BEGIN EAPI.getFeedback(?,?); END;";
+	public static final String GET_LIST_SUBS_ORDER= "BEGIN EAPI.getListSubjectOrder(?,?,?); END;";
+	public static final String GET_LIST_ITEM_ORDER= "BEGIN EAPI.getListItemOrder(?,?,?); END;";
+	public static final String GET_WEATHER= "BEGIN EAPI.getWeathers(?,?); END;";
+		
 }

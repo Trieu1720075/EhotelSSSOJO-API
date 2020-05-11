@@ -15,6 +15,40 @@ public class Config {
 	private String dbiPort = "";
 	private String dbiServicename = "";
 	private String remoteViewport = "";
+	private String wol = "";
+	private String sleepwol = "";
+
+	public String getSleepwol() {
+		return sleepwol;
+	}
+
+	public void setSleepwol(String sleepwol) {
+		this.sleepwol = sleepwol;
+	}
+
+	public String getDbiServicename() {
+		return dbiServicename;
+	}
+
+	public void setDbiServicename(String dbiServicename) {
+		this.dbiServicename = dbiServicename;
+	}
+
+	public String getRemoteViewport() {
+		return remoteViewport;
+	}
+
+	public void setRemoteViewport(String remoteViewport) {
+		this.remoteViewport = remoteViewport;
+	}
+
+	public String getWol() {
+		return wol;
+	}
+
+	public void setWol(String wol) {
+		this.wol = wol;
+	}
 
 	public String getDbiHost() {
 		return dbiHost;
@@ -75,6 +109,8 @@ public class Config {
 			dbiPort = prop.getProperty("ehoteldbi.dbiport");
 			dbiServicename = prop.getProperty("ehoteldbi.dbiservicename");
 			remoteViewport = prop.getProperty("ehoteldbi.remoteviewport");
+			wol = prop.getProperty("ehoteldbi.WOL");
+			sleepwol = prop.getProperty("ehoteldbi.sleepWOL");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

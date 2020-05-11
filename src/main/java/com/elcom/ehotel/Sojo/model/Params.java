@@ -1,6 +1,8 @@
 package com.elcom.ehotel.Sojo.model;
 
 public class Params {
+	String username;
+	String password;
 	String keytablet;
 	String url;
 	String volume;
@@ -8,6 +10,21 @@ public class Params {
 	String number;
 	String step;
 	
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 	
 	public void setKeytablet(String keytablet) {
 		this.keytablet = keytablet;

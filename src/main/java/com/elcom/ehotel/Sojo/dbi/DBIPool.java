@@ -57,8 +57,8 @@ public class DBIPool {
 		DBI dbi = null;
 		String host = "localhost", port = "10002";
 		Config config = new Config();
-		host = config.getDbiHost();
-		port = config.getDbiPort();
+//		host = config.getDbiHost();
+//		port = config.getDbiPort();
 		int attemptNo = 1;
 		while (attemptNo < 2) {
 			try {
