@@ -189,6 +189,38 @@ public class SoJoController {
 		return list;
 	}
 
+	// TC_ApiGetListMode
+	@GET
+	@Path("/TC_ApiGetListMode/{keytablet}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HashMap<String, String>> ListMode(@PathParam("keytablet") String keytablet) {
+		SoJoDao dao = new SoJoDao();
+		List<HashMap<String, String>> list = dao.getListMode(keytablet);
+		return list;
+	}
+
+	// TC_ApiGetModeInfo
+	@GET
+	@Path("/TC_ApiGetModeInfo/{keytablet}/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HashMap<String, String>> ModeInfo(@PathParam("keytablet") String keytablet,
+			@PathParam("id") String subjectId) {
+		SoJoDao dao = new SoJoDao();
+		List<HashMap<String, String>> list = dao.getModeInfo(keytablet, subjectId);
+		return list;
+	}
+
+	// TC_ApiChooseMode
+	@GET
+	@Path("/TC_ApiChooseMode/{keytablet}/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<HashMap<String, String>> ChannelMode(@PathParam("keytablet") String keytablet,
+			@PathParam("id") String subjectId) {
+		SoJoDao dao = new SoJoDao();
+		List<HashMap<String, String>> list = dao.getChooseMode(keytablet, subjectId);
+		return list;
+	}
+
 	// TC_ApiGetWeather
 	@GET
 	@Path("/TC_ApiGetWeather/{keytablet}")

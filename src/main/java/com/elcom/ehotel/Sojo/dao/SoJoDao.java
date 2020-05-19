@@ -745,6 +745,115 @@ public class SoJoDao {
 		return list;
 	}
 
+	// TC_ApiGetListMode
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, String>> getListMode(String key) {
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		Vector<SubProParam> params = new Vector<SubProParam>();
+		SubProParam in = new SubProParam(new String(key), 0);
+		params.add(in);
+		Vector<String> outParam = new Vector<String>();
+		SubProParam subOut = new SubProParam(outParam, "STRING_ARR", 1);
+		params.add(subOut);
+		try {
+			params = SQL.broker.executeSubPro(SQL.GET_LIST_MODE, params);
+			if ((params != null) & (params.size() > 0)) {
+				subOut = (SubProParam) params.get(params.size() - 1);
+				outParam = subOut.getVector();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		for (int i = 0; i < outParam.size(); i += 3) {
+			HashMap<String, String> data = new HashMap<String, String>();
+			data.put("id", outParam.get(i));
+			data.put("name", outParam.get(i + 1));
+			data.put("img", outParam.get(i + 2));
+			list.add(data);
+		}
+		return list;
+	}
+
+	// TC_ApiGetModeInfo
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, String>> getModeInfo(String key, String Id) {
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		Vector<SubProParam> params = new Vector<SubProParam>();
+		SubProParam in = new SubProParam(new String(key), 0);
+		params.add(in);
+		in = new SubProParam(new String(Id), 0);
+		params.add(in);
+		Vector<String> outParam = new Vector<String>();
+		SubProParam subOut = new SubProParam(outParam, "STRING_ARR", 1);
+		params.add(subOut);
+		try {
+			params = SQL.broker.executeSubPro(SQL.GET_MODE_INFO, params);
+			if ((params != null) & (params.size() > 0)) {
+				subOut = (SubProParam) params.get(params.size() - 1);
+				outParam = subOut.getVector();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		for (int i = 0; i < outParam.size(); i += 4) {
+			HashMap<String, String> data = new HashMap<String, String>();
+			data.put("id", outParam.get(i));
+			data.put("name", outParam.get(i + 1));
+			data.put("img", outParam.get(i + 2));
+			data.put("video", outParam.get(i + 3));
+			list.add(data);
+		}
+		return list;
+	}
+
+	// TC_ApiGetChannelMode
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, String>> getChannelMode(String key, String Id) {
+		List<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+		Vector<SubProParam> params = new Vector<SubProParam>();
+		SubProParam in = new SubProParam(new String(key), 0);
+		params.add(in);
+		in = new SubProParam(new String(Id), 0);
+		params.add(in);
+		Vector<String> outParam = new Vector<String>();
+		SubProParam subOut = new SubProParam(outParam, "STRING_ARR", 1);
+		params.add(subOut);
+		try {
+			params = SQL.broker.executeSubPro(SQL.GET_CHANEL_MODE, params);
+			if ((params != null) & (params.size() > 0)) {
+				subOut = (SubProParam) params.get(params.size() - 1);
+				outParam = subOut.getVector();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		for (int i = 0; i < outParam.size(); i += 5) {
+			HashMap<String, String> data = new HashMap<String, String>();
+			data.put("id", outParam.get(i));
+			data.put("name", outParam.get(i + 1));
+			data.put("index", outParam.get(i + 2));
+			data.put("url", outParam.get(i + 3));
+			data.put("img", outParam.get(i + 4));
+			list.add(data);
+		}
+		return list;
+	}
+
+	// TC_ApiGetChooseMode
+	@SuppressWarnings("unchecked")
+	public List<HashMap<String, String>> getChooseMode(String key, String Id) {
+		Params para = new Params();
+		List<HashMap<String, String>> listChanelMode = new ArrayList<HashMap<String, String>>();
+		List<HashMap<String, String>> listModeInfo = new ArrayList<HashMap<String, String>>();
+		listModeInfo = getModeInfo(key, Id);
+		HashMap<String, String> video = listModeInfo.get(0);
+		String videolink = video.get("video");
+		para.setUrl(videolink);
+		sendRequestPlayVideo(para);
+		listChanelMode = getChannelMode(key, Id);	
+		return listChanelMode;
+	}
+
 	// TC_ApiGetFlightSchedule
 	@SuppressWarnings("unchecked")
 	public List<HashMap<String, String>> getFlightSchedule(String key, String airportId) {
@@ -1096,7 +1205,7 @@ public class SoJoDao {
 			if (response.equals("OK")) // sleep 15s and call open TV
 			{
 				// Thread.sleep(Long.parseLong(config.getSleepwol()));
-				Thread.sleep(15000);
+				Thread.sleep(20000);
 				r = Response.status(200).entity(message).build();
 				DatagramSocket socket;
 				DatagramPacket packet;
@@ -1208,17 +1317,21 @@ public class SoJoDao {
 		// System.out.println(s.getListChannelsBySubjects("1900", "162"));
 //		System.out.println(s.getSubjectVideo("1900"));
 //		System.out.println(s.getListVideoBySubjects("1900", "527"));
-		//System.out.println(s.getSubjectMusic("1900"));
+		// System.out.println(s.getSubjectMusic("1900"));
 //		System.out.println(s.getListMusicBySubjects("1900", "550"));
 //		System.out.println(s.getListMain(keyTablet));
 //		System.out.println(s.getListSubjectInfo(keyTablet, mainId));
 //		System.out.println(s.getListItemInfo(keyTablet, susId));
 //		System.out.println(s.getListAirPort(keyTablet));
 //		System.out.println(s.getFlightSchedule(keyTablet, airportId));
-		System.out.println(s.getListSubjectOrder(x,x));
-		System.out.println(s.getListItemOrder(x, x));
-		System.out.println(s.getWeather(x));
-		System.out.println(s.getFeedback(x));
+//		System.out.println(s.getListSubjectOrder(x, x));
+//		System.out.println(s.getListItemOrder(x, x));
+//		System.out.println(s.getWeather(x));
+//		System.out.println(s.getFeedback(x));
+		System.out.println(s.getListMode(keyTablet));
+		System.out.println(s.getModeInfo(keyTablet, x));
+		System.out.println(s.getChannelMode(keyTablet, x));
+		System.out.println(s.getChooseMode(keyTablet, x));
 	}
 
 }

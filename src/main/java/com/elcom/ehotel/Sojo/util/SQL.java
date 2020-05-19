@@ -27,5 +27,8 @@ public class SQL {
 	public static final String GET_LIST_SUBS_ORDER= "BEGIN EAPI.getListSubjectOrder(?,?,?); END;";
 	public static final String GET_LIST_ITEM_ORDER= "BEGIN EAPI.getListItemOrder(?,?,?); END;";
 	public static final String GET_WEATHER= "BEGIN EAPI.getWeathers(?,?); END;";
+	public static final String GET_LIST_MODE= "BEGIN EAPI.getListMode(?,?); END;";
+	public static final String GET_MODE_INFO= "BEGIN EAPI.getModeInfo(?,?,?); END;";
+	public static final String GET_CHANEL_MODE= "BEGIN EAPI.getChannelMode(?,?,?); END;";
 		
 }
