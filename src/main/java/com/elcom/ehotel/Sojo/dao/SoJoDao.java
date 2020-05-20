@@ -27,6 +27,27 @@ public class SoJoDao {
 	// Read configuration params
 	Config config = new Config();
 
+	// TC_ApiGetInfoTV
+	@SuppressWarnings("unchecked")
+	public String getInfoTV(String key) {
+		String result = " ";
+		Vector<SubProParam> params = new Vector<SubProParam>();
+		SubProParam in = new SubProParam(new String(key), 0);
+		params.add(in);
+		SubProParam subOut = new SubProParam(new String(), 1);
+		params.add(subOut);
+		try {
+			params = SQL.broker.executeSubPro(SQL.GET_INFO_TV, params);
+			if ((params != null) & (params.size() > 0)) {
+				SubProParam paramOut = (SubProParam) params.get(params.size() - 1);
+				result = paramOut.getString().trim();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
 	// TC_ApiGetListRoom
 	@SuppressWarnings("unchecked")
 	public List<HashMap<String, String>> getListRoom() {
@@ -309,12 +330,19 @@ public class SoJoDao {
 		Response r = null;
 		String message = "sucessfully";
 		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			String mess = "TC_ApiPlayChannel" + "$" + para.getUrl();
@@ -342,12 +370,19 @@ public class SoJoDao {
 		Response r = null;
 		String message = "sucessfully";
 		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			String mess = "TC_ApiUpDownChannel" + "$" + para.getKeytablet() + "$" + para.getNumber() + "$"
@@ -437,12 +472,19 @@ public class SoJoDao {
 		Response r = null;
 		String message = "sucessfully";
 		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			String mess = "TC_ApiPlayVideo" + "$" + para.getUrl();
@@ -530,12 +572,19 @@ public class SoJoDao {
 		Response r = null;
 		String message = "sucessfully";
 		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			String mess = "TC_ApiPlayMusic" + "$" + para.getUrl();
@@ -849,8 +898,9 @@ public class SoJoDao {
 		HashMap<String, String> video = listModeInfo.get(0);
 		String videolink = video.get("video");
 		para.setUrl(videolink);
+		para.setKeytablet(key);
 		sendRequestPlayVideo(para);
-		listChanelMode = getChannelMode(key, Id);	
+		listChanelMode = getChannelMode(key, Id);
 		return listChanelMode;
 	}
 
@@ -898,12 +948,19 @@ public class SoJoDao {
 		Response r = null;
 		String message = "sucessfully";
 		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			String mess = "TC_ApiControlVolume" + "$" + para.getKeytablet() + "$" + para.getVolume();
@@ -929,16 +986,23 @@ public class SoJoDao {
 	}
 
 	// TC_ApiReBootTV
-	public Response sendRequestReBootTV() {
+	public Response sendRequestReBootTV(Params para) {
 		Response r = null;
 		String message = "sucessfully";
 		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			// String mess = api + "," + keyTablet + "," + volume ;
@@ -1162,16 +1226,23 @@ public class SoJoDao {
 	}
 
 	// TC_ApiControlGetOutRoom
-	public Response sendRequestGetOutRoom() {
+	public Response sendRequestGetOutRoom(Params para) {
 		Response r = null;
 		String message = "sucessfully";
 		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			// String mess = api + "," + keyTablet;
@@ -1196,11 +1267,19 @@ public class SoJoDao {
 	}
 
 	// TC_ApiTurnOnTV
-	public Response sendRequestTurnOnTV() {
+	public Response sendRequestTurnOnTV(Params para) {
 		Response r = null;
 		String message = "sucessfully";
 		try {
-			String request = config.getWol() + "b8:bb:af:ed:e3:99";
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
+			String request = config.getWol() + mac;
 			String response = getRequest(request);
 			if (response.equals("OK")) // sleep 15s and call open TV
 			{
@@ -1211,7 +1290,6 @@ public class SoJoDao {
 				DatagramPacket packet;
 				InetAddress address;
 				socket = new DatagramSocket();
-				String dip = config.getDbiTVIp();
 				address = InetAddress.getByName(dip);
 				int port = Integer.parseInt(config.getDbiTVPort());
 				// String mess = api + "," + keyTablet;
@@ -1239,7 +1317,7 @@ public class SoJoDao {
 	}
 
 	// TC_ApiBackWelcome
-	public Response sendRequestBackWelcome() {
+	public Response sendRequestBackWelcome(Params para) {
 		Response r = null;
 		String message = "sucessfully";
 		try {
@@ -1248,7 +1326,14 @@ public class SoJoDao {
 			DatagramPacket packet;
 			InetAddress address;
 			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
+	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
+	        	macFormat.insert(i, ":"); 
+	        }
+	        String mac = macFormat.toString();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			String mess = "TC_ApiBackWelcome";
@@ -1307,10 +1392,12 @@ public class SoJoDao {
 		String susId = "549";
 		String airportId = "504";
 		String itemId = "856";
+		Params para = new Params();
+		para.setKeytablet(keyTablet);
 //		System.out.println(s.getListRoom());
 //		System.out.println(s.getListDevice("305"));
 //		System.out.println(s.registerTablet("1900", "XTCLFOP7KAJOE"));
-		// System.out.println(s.getDataWelcome("1900"));
+		//System.out.println(s.getDataWelcome("1900"));
 //		System.out.println(s.setLanguageAndGetMain("1900", "2"));
 		// System.out.println(s.getListChannels("1900"));
 		/// System.out.println(s.getListSubjectsChannels("1900"));
@@ -1328,10 +1415,11 @@ public class SoJoDao {
 //		System.out.println(s.getListItemOrder(x, x));
 //		System.out.println(s.getWeather(x));
 //		System.out.println(s.getFeedback(x));
-		System.out.println(s.getListMode(keyTablet));
-		System.out.println(s.getModeInfo(keyTablet, x));
-		System.out.println(s.getChannelMode(keyTablet, x));
-		System.out.println(s.getChooseMode(keyTablet, x));
+//		System.out.println(s.getListMode(keyTablet));
+//		System.out.println(s.getModeInfo(keyTablet, x));
+//		System.out.println(s.getChannelMode(keyTablet, x));
+//		System.out.println(s.getChooseMode(keyTablet, x));
+		//System.out.print(s.sendRequestBackWelcome(para));
 	}
 
 }

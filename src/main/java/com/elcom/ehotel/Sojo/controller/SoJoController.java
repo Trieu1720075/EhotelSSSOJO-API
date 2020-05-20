@@ -388,9 +388,9 @@ public class SoJoController {
 	@POST
 	@Path("/TC_ApiControlGetOutRoom")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ControlGetOutRoom() {
+	public Response ControlGetOutRoom(Params para) {
 		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestGetOutRoom();
+		Response result = dao.sendRequestGetOutRoom(para);
 		return result;
 	}
 
@@ -398,9 +398,9 @@ public class SoJoController {
 	@POST
 	@Path("/TC_ApiBackWelcome")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response BackWelcome() {
+	public Response BackWelcome(Params para) {
 		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestBackWelcome();
+		Response result = dao.sendRequestBackWelcome(para);
 		return result;
 	}
 
@@ -408,9 +408,9 @@ public class SoJoController {
 	@POST
 	@Path("/TC_ApiReBootTV")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ReBootTV() {
+	public Response ReBootTV(Params para) {
 		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestReBootTV();
+		Response result = dao.sendRequestReBootTV(para);
 		return result;
 	}
 
@@ -418,9 +418,9 @@ public class SoJoController {
 	@POST
 	@Path("/TC_ApiTurnOnTV")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response TurnOnTV() {
+	public Response TurnOnTV(Params para) {
 		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestTurnOnTV();
+		Response result = dao.sendRequestTurnOnTV(para);
 		return result;
 	}
 
