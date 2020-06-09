@@ -64,6 +64,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 1) {
 			HashMap<String, String> room = new HashMap<String, String>();
@@ -91,6 +92,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 2) {
 			HashMap<String, String> devices = new HashMap<String, String>();
@@ -143,6 +145,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return dataWelcome;
 		}
 
 		dataWelcome.put("roomNumber", outParam.get(0));
@@ -181,6 +184,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 4) {
 			String id = "id";
@@ -215,6 +219,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 2) {
 			String id = "id";
@@ -245,6 +250,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 10) {
 			HashMap<String, String> dataWeather = new HashMap<String, String>();
@@ -281,6 +287,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> dataWelcome = new HashMap<String, String>();
@@ -312,6 +319,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 5) {
 			HashMap<String, String> dataWelcome = new HashMap<String, String>();
@@ -333,11 +341,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
@@ -353,12 +361,12 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception in play chanel " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't play chanel, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception in play chanel " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't play chanel, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -373,11 +381,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
@@ -394,12 +402,12 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't move to next chanel, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't move to next chanel, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -424,6 +432,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -455,6 +464,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 4) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -475,11 +485,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
@@ -487,7 +497,7 @@ public class SoJoDao {
 			socket = new DatagramSocket();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = "TC_ApiPlayVideo" + "$" + para.getUrl();
+			String mess = "TC_ApiPlayVideo" + "$" + para.getUrl() + "$" + para.getCode();
 			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
 					+ "\"</SDAP/1.0>";
 			byte messageSend[] = messSendRequest.getBytes();
@@ -495,12 +505,172 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception in play chanel " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't play video, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception in play chanel " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't play video, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		}
+
+		return r;
+	}
+
+	// TC_ApiPauseVideo
+	public Response sendRequestPauseVideo(Params para) {
+		Response r = null;
+		String message = "sucessfully";
+		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
+			r = Response.status(200).entity(message).build();
+			DatagramSocket socket;
+			DatagramPacket packet;
+			InetAddress address;
+			socket = new DatagramSocket();
+			address = InetAddress.getByName(dip);
+			int port = Integer.parseInt(config.getDbiTVPort());
+			String mess = "TC_ApiPauseVideo" + "$" + para.getUrl();
+			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
+					+ "\"</SDAP/1.0>";
+			byte messageSend[] = messSendRequest.getBytes();
+			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
+			socket.send(packet);
+			socket.close();
+		} catch (RuntimeException e) {
+			message = "Can't pause video, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			message = "Can't pause video, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		}
+
+		return r;
+	}
+
+	// TC_ApiResumeVideo
+	public Response sendRequestResumeVideo(Params para) {
+		Response r = null;
+		String message = "sucessfully";
+		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
+			r = Response.status(200).entity(message).build();
+			DatagramSocket socket;
+			DatagramPacket packet;
+			InetAddress address;
+			socket = new DatagramSocket();
+			address = InetAddress.getByName(dip);
+			int port = Integer.parseInt(config.getDbiTVPort());
+			String mess = "TC_ApiResumeVideo" + "$" + para.getUrl();
+			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
+					+ "\"</SDAP/1.0>";
+			byte messageSend[] = messSendRequest.getBytes();
+			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
+			socket.send(packet);
+			socket.close();
+		} catch (RuntimeException e) {
+			message = "Can't resume video, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			message = "Can't resume video, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		}
+
+		return r;
+	}
+
+	// TC_ApiPauseMusic
+	public Response sendRequestPauseMusic(Params para) {
+		Response r = null;
+		String message = "sucessfully";
+		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
+			r = Response.status(200).entity(message).build();
+			DatagramSocket socket;
+			DatagramPacket packet;
+			InetAddress address;
+			socket = new DatagramSocket();
+			address = InetAddress.getByName(dip);
+			int port = Integer.parseInt(config.getDbiTVPort());
+			String mess = "TC_ApiPauseMusic" + "$" + para.getUrl();
+			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
+					+ "\"</SDAP/1.0>";
+			byte messageSend[] = messSendRequest.getBytes();
+			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
+			socket.send(packet);
+			socket.close();
+		} catch (RuntimeException e) {
+			message = "Can't pause music, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			message = "Can't pause music, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		}
+
+		return r;
+	}
+
+	// TC_ApiResumeMusic
+	public Response sendRequestResumeMusic(Params para) {
+		Response r = null;
+		String message = "sucessfully";
+		try {
+			String iPMAC = getInfoTV(para.getKeytablet());
+			String[] arrIPMAC = iPMAC.split("\\|");
+			String dip = arrIPMAC[0];
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
+			r = Response.status(200).entity(message).build();
+			DatagramSocket socket;
+			DatagramPacket packet;
+			InetAddress address;
+			socket = new DatagramSocket();
+			address = InetAddress.getByName(dip);
+			int port = Integer.parseInt(config.getDbiTVPort());
+			String mess = "TC_ApiResumeMusic" + "$" + para.getUrl();
+			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
+					+ "\"</SDAP/1.0>";
+			byte messageSend[] = messSendRequest.getBytes();
+			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
+			socket.send(packet);
+			socket.close();
+		} catch (RuntimeException e) {
+			message = "Can't resume music, please try again";
+			r = Response.status(200).entity(message).build();
+			e.printStackTrace();
+		} catch (Exception e) {
+			message = "Can't resume music, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -525,6 +695,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -556,6 +727,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -575,11 +747,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
@@ -595,12 +767,12 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception in play chanel " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't play music, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception in play chanel " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't play music, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -625,6 +797,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 4) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -655,6 +828,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 4) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -687,6 +861,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -718,6 +893,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -749,6 +925,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -780,6 +957,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 6) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -812,6 +990,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 3) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -843,13 +1022,15 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
-		for (int i = 0; i < outParam.size(); i += 4) {
+		for (int i = 0; i < outParam.size(); i += 5) {
 			HashMap<String, String> data = new HashMap<String, String>();
 			data.put("id", outParam.get(i));
 			data.put("name", outParam.get(i + 1));
 			data.put("img", outParam.get(i + 2));
 			data.put("video", outParam.get(i + 3));
+			data.put("code", outParam.get(i + 4));
 			list.add(data);
 		}
 		return list;
@@ -875,6 +1056,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 5) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -891,17 +1073,25 @@ public class SoJoDao {
 	// TC_ApiGetChooseMode
 	@SuppressWarnings("unchecked")
 	public List<HashMap<String, String>> getChooseMode(String key, String Id) {
-		Params para = new Params();
 		List<HashMap<String, String>> listChanelMode = new ArrayList<HashMap<String, String>>();
 		List<HashMap<String, String>> listModeInfo = new ArrayList<HashMap<String, String>>();
-		listModeInfo = getModeInfo(key, Id);
-		HashMap<String, String> video = listModeInfo.get(0);
-		String videolink = video.get("video");
-		para.setUrl(videolink);
-		para.setKeytablet(key);
-		sendRequestPlayVideo(para);
-		listChanelMode = getChannelMode(key, Id);
-		return listChanelMode;
+		try {
+			Params para = new Params();
+			listModeInfo = getModeInfo(key, Id);
+			HashMap<String, String> video = listModeInfo.get(0);
+			String videolink = video.get("video");
+			String code = video.get("code");
+			para.setUrl(videolink);
+			para.setKeytablet(key);
+			para.setCode(code);
+			sendRequestPlayVideo(para);
+			listChanelMode = getChannelMode(key, Id);
+			return listChanelMode;
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			return listChanelMode;
+		}
+
 	}
 
 	// TC_ApiGetFlightSchedule
@@ -924,6 +1114,7 @@ public class SoJoDao {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			return list;
 		}
 		for (int i = 0; i < outParam.size(); i += 11) {
 			HashMap<String, String> data = new HashMap<String, String>();
@@ -951,11 +1142,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
@@ -973,12 +1164,12 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't control volume, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't control volume, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -993,11 +1184,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
@@ -1015,210 +1206,12 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		}
-
-		return r;
-	}
-
-	// TC_ApiControlSleep
-	public Response sendRequestControlSleep(String api, String keyTablet, String bedTimeStory) {
-		Response r = null;
-		String message = "sucessfully";
-		try {
+			message = "Can't reboot TV, please try again";
 			r = Response.status(200).entity(message).build();
-			DatagramSocket socket;
-			DatagramPacket packet;
-			InetAddress address;
-			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
-			address = InetAddress.getByName(dip);
-			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = api + "," + bedTimeStory;
-			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
-					+ "\"</SDAP/1.0>";
-			byte messageSend[] = messSendRequest.getBytes();
-			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
-			socket.send(packet);
-			socket.close();
-		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		}
-
-		return r;
-	}
-
-	// TC_ApiControlWakeUp
-	public Response sendRequestControlWakeUp(String api, String keyTablet, String date, String time, String loop) {
-		Response r = null;
-		String message = "sucessfully";
-		try {
+			message = "Can't reboot TV, please try again";
 			r = Response.status(200).entity(message).build();
-			DatagramSocket socket;
-			DatagramPacket packet;
-			InetAddress address;
-			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
-			address = InetAddress.getByName(dip);
-			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = api + "," + keyTablet + "," + date + "," + time + "," + loop;
-			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
-					+ "\"</SDAP/1.0>";
-			byte messageSend[] = messSendRequest.getBytes();
-			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
-			socket.send(packet);
-			socket.close();
-		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		}
-
-		return r;
-	}
-
-	// TC_ApiControlWork
-	public Response sendRequestControlWork(String api, String keyTablet, String chooseMusic) {
-		Response r = null;
-		String message = "sucessfully";
-		try {
-			r = Response.status(200).entity(message).build();
-			DatagramSocket socket;
-			DatagramPacket packet;
-			InetAddress address;
-			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
-			address = InetAddress.getByName(dip);
-			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = api + "," + keyTablet + "," + chooseMusic;
-			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
-					+ "\"</SDAP/1.0>";
-			byte messageSend[] = messSendRequest.getBytes();
-			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
-			socket.send(packet);
-			socket.close();
-		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		}
-
-		return r;
-	}
-
-	// TC_ApiControlRelaxVideo
-	public Response sendRequestRelaxVideo(String api, String keyTablet) {
-		Response r = null;
-		String message = "sucessfully";
-		try {
-			r = Response.status(200).entity(message).build();
-			DatagramSocket socket;
-			DatagramPacket packet;
-			InetAddress address;
-			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
-			address = InetAddress.getByName(dip);
-			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = api + "," + keyTablet;
-			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
-					+ "\"</SDAP/1.0>";
-			byte messageSend[] = messSendRequest.getBytes();
-			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
-			socket.send(packet);
-			socket.close();
-		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		}
-
-		return r;
-	}
-
-	// TC_ApiControlRelaxLightly
-	public Response sendRequestRelaxLightly(String api, String keyTablet) {
-		Response r = null;
-		String message = "sucessfully";
-		try {
-			r = Response.status(200).entity(message).build();
-			DatagramSocket socket;
-			DatagramPacket packet;
-			InetAddress address;
-			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
-			address = InetAddress.getByName(dip);
-			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = api + "," + keyTablet;
-			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
-					+ "\"</SDAP/1.0>";
-			byte messageSend[] = messSendRequest.getBytes();
-			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
-			socket.send(packet);
-			socket.close();
-		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		}
-
-		return r;
-	}
-
-	// TC_ApiControlRelaxExciting
-	public Response sendRequestRelaxExciting(String api, String keyTablet) {
-		Response r = null;
-		String message = "sucessfully";
-		try {
-			r = Response.status(200).entity(message).build();
-			DatagramSocket socket;
-			DatagramPacket packet;
-			InetAddress address;
-			socket = new DatagramSocket();
-			String dip = config.getDbiTVIp();
-			address = InetAddress.getByName(dip);
-			int port = Integer.parseInt(config.getDbiTVPort());
-			String mess = api + "," + keyTablet;
-			String messSendRequest = "<SDAP/1.0>SERVER 100 MESSAGE SHOW MESSAGE_TYPE=FORWARD MESSAGE=\"" + mess
-					+ "\"</SDAP/1.0>";
-			byte messageSend[] = messSendRequest.getBytes();
-			packet = new DatagramPacket(messageSend, messageSend.length, address, port);
-			socket.send(packet);
-			socket.close();
-		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
-			e.printStackTrace();
-		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -1233,11 +1226,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			r = Response.status(200).entity(message).build();
 			DatagramSocket socket;
 			DatagramPacket packet;
@@ -1254,12 +1247,12 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't turn off TV, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't turn off TV, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -1274,11 +1267,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			String request = config.getWol() + mac;
 			String response = getRequest(request);
 			if (response.equals("OK")) // sleep 15s and call open TV
@@ -1304,12 +1297,12 @@ public class SoJoDao {
 			}
 
 		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't turn on TV, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't turn on TV, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -1329,11 +1322,11 @@ public class SoJoDao {
 			String iPMAC = getInfoTV(para.getKeytablet());
 			String[] arrIPMAC = iPMAC.split("\\|");
 			String dip = arrIPMAC[0];
-	        StringBuffer macFormat = new StringBuffer(arrIPMAC[1]); 
-	        for (int i = 2; i <= arrIPMAC[1].length()+2; i+=3) {
-	        	macFormat.insert(i, ":"); 
-	        }
-	        String mac = macFormat.toString();
+			StringBuffer macFormat = new StringBuffer(arrIPMAC[1]);
+			for (int i = 2; i <= arrIPMAC[1].length() + 2; i += 3) {
+				macFormat.insert(i, ":");
+			}
+			String mac = macFormat.toString();
 			address = InetAddress.getByName(dip);
 			int port = Integer.parseInt(config.getDbiTVPort());
 			String mess = "TC_ApiBackWelcome";
@@ -1344,12 +1337,12 @@ public class SoJoDao {
 			socket.send(packet);
 			socket.close();
 		} catch (RuntimeException e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't back to Standby page, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		} catch (Exception e) {
-			message = "Exception " + e;
-			r = Response.status(409).entity(message).build();
+			message = "Can't back to Standby page, please try again";
+			r = Response.status(200).entity(message).build();
 			e.printStackTrace();
 		}
 
@@ -1397,7 +1390,7 @@ public class SoJoDao {
 //		System.out.println(s.getListRoom());
 //		System.out.println(s.getListDevice("305"));
 //		System.out.println(s.registerTablet("1900", "XTCLFOP7KAJOE"));
-		//System.out.println(s.getDataWelcome("1900"));
+		// System.out.println(s.getDataWelcome("1900"));
 //		System.out.println(s.setLanguageAndGetMain("1900", "2"));
 		// System.out.println(s.getListChannels("1900"));
 		/// System.out.println(s.getListSubjectsChannels("1900"));
@@ -1419,7 +1412,7 @@ public class SoJoDao {
 //		System.out.println(s.getModeInfo(keyTablet, x));
 //		System.out.println(s.getChannelMode(keyTablet, x));
 //		System.out.println(s.getChooseMode(keyTablet, x));
-		//System.out.print(s.sendRequestBackWelcome(para));
+		// System.out.print(s.sendRequestBackWelcome(para));
 	}
 
 }

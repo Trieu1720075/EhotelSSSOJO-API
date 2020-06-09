@@ -148,6 +148,46 @@ public class SoJoController {
 		return result;
 	}
 
+	// TC_ApiPauseVideo
+	@POST
+	@Path("/TC_ApiPauseVideo")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response PauseVideo(Params para) {
+		SoJoDao dao = new SoJoDao();
+		Response result = dao.sendRequestPauseVideo(para);
+		return result;
+	}
+
+	// TC_ApiResumeVideo
+	@POST
+	@Path("/TC_ApiResumeVideo")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response ResumeVideo(Params para) {
+		SoJoDao dao = new SoJoDao();
+		Response result = dao.sendRequestResumeVideo(para);
+		return result;
+	}
+
+	// TC_ApiPauseMusic
+	@POST
+	@Path("/TC_ApiPauseMusic")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response PauseMusic(Params para) {
+		SoJoDao dao = new SoJoDao();
+		Response result = dao.sendRequestPauseMusic(para);
+		return result;
+	}
+
+	// TC_ApiResumeMusic
+	@POST
+	@Path("/TC_ApiResumeMusic")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response ResumeMusic(Params para) {
+		SoJoDao dao = new SoJoDao();
+		Response result = dao.sendRequestResumeMusic(para);
+		return result;
+	}
+
 	// TC_ApiGetSubjectMusic
 	@GET
 	@Path("/TC_ApiGetSubjectMusic/{keytablet}")
@@ -316,74 +356,6 @@ public class SoJoController {
 		return result;
 	}
 
-	// TC_ApiControlSleep
-	@POST
-	@Path("/controlSleep")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ControlSleep(@QueryParam("api") String api, @QueryParam("keytablet") String keytablet,
-			@QueryParam("bedtimestory") String bedtimestory) {
-		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestControlSleep(api, keytablet, bedtimestory);
-		return result;
-	}
-
-	// not done
-	// TC_ApiControlWakeup
-	@POST
-	@Path("/controlWakeUp")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ControlWakeUp(@QueryParam("api") String api, @QueryParam("keytablet") String keytablet,
-			@QueryParam("date") String date, @QueryParam("time") String time, @QueryParam("loop") String loop) {
-		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestControlWakeUp(api, keytablet, date, time, loop);
-		return result;
-	}
-
-	// not done
-	// TC_ApiControlRelaxVideo
-	@POST
-	@Path("/controlRelaxVideo")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ControlRelaxVideo(@QueryParam("api") String api, @QueryParam("keytablet") String keytablet) {
-		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestRelaxVideo(api, keytablet);
-		return result;
-	}
-
-	// not done
-	// TC_ApiControlWork
-	@POST
-	@Path("/controlWork")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ControlWork(@QueryParam("api") String api, @QueryParam("keytablet") String keytablet,
-			@QueryParam("chooseMusic") String chooseMusic) {
-		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestControlWork(api, keytablet, chooseMusic);
-		return result;
-	}
-
-	// not done
-	// TC_ApiControlRelaxLightly
-	@POST
-	@Path("/controlRelaxLightly")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ControlRelaxLightly(@QueryParam("api") String api, @QueryParam("keytablet") String keytablet) {
-		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestRelaxLightly(api, keytablet);
-		return result;
-	}
-
-	// not done
-	// TC_ApiControlRelaxLightly
-	@POST
-	@Path("/controlRelaxExciting")
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response ControlRelaxExciting(@QueryParam("api") String api, @QueryParam("keytablet") String keytablet) {
-		SoJoDao dao = new SoJoDao();
-		Response result = dao.sendRequestRelaxExciting(api, keytablet);
-		return result;
-	}
-
 	// TC_ApiControlGetOutRoom
 	@POST
 	@Path("/TC_ApiControlGetOutRoom")
@@ -414,7 +386,7 @@ public class SoJoController {
 		return result;
 	}
 
-	// TC_ApiReBootTV
+	// TC_ApiTurnOnTV
 	@POST
 	@Path("/TC_ApiTurnOnTV")
 	@Consumes(MediaType.APPLICATION_JSON)

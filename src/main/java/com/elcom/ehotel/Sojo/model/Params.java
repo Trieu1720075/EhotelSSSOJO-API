@@ -9,7 +9,16 @@ public class Params {
 	Boolean plus;
 	String number;
 	String step;
+	String code;
 	
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public String getUsername() {
 		return username;
 	}
